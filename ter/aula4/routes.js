@@ -5,8 +5,8 @@ const router = Router()
 
 router.post('/jogadores', jogadorCreate)
       .get('/jogadores', jogadorIndex)
-      .delete('/jogadores', jogadorDestroy)
-      .put('/jogadores', jogadorUpdate)
+      .delete('/jogadores/:id', jogadorDestroy)
+      .put('/jogadores/:id', jogadorUpdate)
       
 
 
