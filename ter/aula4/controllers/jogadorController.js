@@ -24,6 +24,7 @@ export const jogadorCreate = async (req, res) => {
   export const jogadorIndex = async (req, res) => {
     try {
       const jogador = await Jogador.findAll();
+  
       res.status(201).json(jogador)
     } catch (error) {
       res.status(400).send(error)
