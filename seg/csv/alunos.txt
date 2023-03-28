@@ -1,0 +1,5 @@
+nome,idade,curso
+Bianca Soares,19,ADS
+Carlos Costa,21,SPI
+Débora Santos,22,Redes
+Fernando Barbosa,20,ADS
