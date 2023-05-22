@@ -1,6 +1,5 @@
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../data/conecta.js';
-import { Carro } from './Carro.js';
 
 
 export const Cliente = sequelize.define('cliente', {
@@ -17,12 +16,12 @@ export const Cliente = sequelize.define('cliente', {
     type: DataTypes.STRING(30),
     allowNull: false,
   },
-  cpf: {
+  endereco: {
     type: DataTypes.STRING(20),
     allowNull: false,
   },
-  dataFab: {
-    type: DataTypes.DATE,
+  senha: {
+    type: DataTypes.STRING(30),
     allowNull: false,
   },
 });

@@ -2,6 +2,10 @@ import express from 'express'
 import { sequelize } from './data/conecta.js'
 import cors from "cors"
 import routes from './routes.js'
+import { Usuario } from './models/Usuario.js'
+import { Cliente } from './models/Cliente.js'
+import { Proposta } from './models/Propostas.js'
+import { Carro } from './models/Carro.js'
 
 const app = express()
 const port = 3000
@@ -14,8 +18,10 @@ async function conecta_db() {
   try {
     await sequelize.authenticate();
     console.log('Conexão com banco de dados realizada com sucesso');
-    await sequelize.sync();  
-
+    await Usuario.sync()
+    await Cliente.sync()
+    await Proposta.sync()
+    await Carro.sync()
   } catch (error) {
     console.error('Erro na conexão com o banco: ', error);
   }

@@ -11,7 +11,7 @@ export const carroIndex = async (req, res) => {
   }
 }
 
-export const bebeCreate = async (req, res) => {
+export const carroCreate = async (req, res) => {
   const { marca, modelo, dataFab, status,cliente_id} = req.body
 
   if (!marca || !cliente_id || !modelo || !dataFab|| !status) {

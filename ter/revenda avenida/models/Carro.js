@@ -1,6 +1,6 @@
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../data/conecta.js';
-import { Cliente } from './Cliente.js';
+import {Usuario} from "./Usuario.js" 
 
 export const Carro = sequelize.define('carro', {
   id: {
@@ -16,40 +16,27 @@ export const Carro = sequelize.define('carro', {
     type: DataTypes.STRING(30),
     allowNull: false,
   },
-  dataFab: {
-    type: DataTypes.DATE,
+  preco: {
+    type: DataTypes.DECIMAL,
     allowNull: false,
   },
-  proposta: {
-    type: DataTypes.DECIMAL(8,2),
-    allowNull: true,
-  },
-  status: {
-    type: DataTypes.BOOLEAN,
+  ano: {
+    type: DataTypes.INTEGER,
     allowNull: false,
   },
 });
 
 
-Carro.belongsTo(Cliente, {
+Carro.belongsTo(Usuario, {
     foreignKey: {
-      name: 'cliente_id',
+      name: 'Usuario_id',
       allowNull: false
     },    
     onDelete: 'RESTRICT',
     onUpdate: 'CASCADE'
   })
   
-    Cliente.hasMany(Carro, {
-    foreignKey: 'cliente_id',
+    Usuario.hasMany(Carro, {
+    foreignKey: 'Usuario_id',
   })
 
-  
-Carro.belongsTo(Vendedor, {
-    foreignKey: {
-      name: 'Vendedor_id',
-      allowNull: false
-    },    
-    onDelete: 'RESTRICT',
-    onUpdate: 'CASCADE'
-  })
