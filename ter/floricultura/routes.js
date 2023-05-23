@@ -1,11 +1,14 @@
 import { Router } from "express"
-import { ProdutoCreate, ProdutoIndex } from "./controllers/ProdutoController"
-
-
+import { vendaCreate, vendaIndex } from "./controllers/vendaController.js"
+import { vendaProdutoCreate, vendaProdutoIndex } from "./controllers/vendaProdutoController.js"
 
 const router = Router()
 
-router.get('/produto',ProdutoIndex)
-      .post('/produto',ProdutoCreate)
+router.get('/vendas', vendaIndex)
+      .post('/vendas', vendaCreate)
+
+router.get('/venda_produtos/:id', vendaProdutoIndex)
+      .post('/venda_produtos', vendaProdutoCreate)
+
 
 export default router

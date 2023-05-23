@@ -1,7 +1,12 @@
 import express from 'express'
-import { sequelize } from './data/conecta.js'
 import cors from "cors"
 import routes from './routes.js'
+
+import { sequelize } from './databases/conecta.js'
+import { Cliente } from './models/Cliente.js'
+import { Produto } from './models/Produto.js'
+import { Venda } from './models/Venda.js'
+import { VendaProduto } from './models/VendaProduto.js'
 
 const app = express()
 const port = 3000
@@ -14,10 +19,17 @@ async function conecta_db() {
   try {
     await sequelize.authenticate();
     console.log('Conexão com banco de dados realizada com sucesso');
-    await Usuario.sync()
+
+    // Pode-se indicar a sincronização das models uma por uma
     await Cliente.sync()
-    await Proposta.sync()
-    await Carro.sync()
+    await Produto.sync()
+    await Venda.sync()
+//    await VendaProduto.sync({force: true})
+    await VendaProduto.sync()
+
+//    await sequelize.sync();  // cria as tabelas do sistema (a partir dos modelos - se não existirem)
+//    await sequelize.sync({alter: true});  // Verifica se há alterações e atualiza as tabelas se houver
+//    await sequelize.sync({force: true});  // recria as tabelas, mesmo se já existirem
   } catch (error) {
     console.error('Erro na conexão com o banco: ', error);
   }
@@ -25,7 +37,7 @@ async function conecta_db() {
 conecta_db()
 
 app.get('/', (req, res) => {
-  res.send('API revenda avenida')
+  res.send('API Floricultura')
 })
 
 app.listen(port, () => {

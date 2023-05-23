@@ -1,42 +1,27 @@
 import { DataTypes } from 'sequelize';
-import { sequelize } from '../data/conecta.js';
-import {Cliente} from "./Cliente.js" 
+import { sequelize } from '../databases/conecta.js';
 
-export const Porduto = sequelize.define('produto', {
+export const Produto = sequelize.define('produto', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true
   },
   nome: {
-    type: DataTypes.STRING(20),
-    allowNull: false,
+    type: DataTypes.STRING(40),
+    allowNull: false
   },
   tipo: {
-    type: DataTypes.STRING(30),
-    allowNull: false,
+    type: DataTypes.STRING(20),
+    allowNull: false
+  },
+  quant: {
+    // UNSIGNED: impede que o valor seja negativo
+    type: DataTypes.INTEGER(4).UNSIGNED,
+    allowNull: false
   },
   preco: {
-    type: DataTypes.DECIMAL(4,2),
-    allowNull: false,
-  },
-  qtdEstq: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-  },
+    type: DataTypes.DECIMAL(9,2),
+    allowNull: false
+  }
 });
-
-
-Porduto.belongsTo(Cliente, {
-    foreignKey: {
-      name: 'Cliente_id',
-      allowNull: false
-    },    
-    onDelete: 'RESTRICT',
-    onUpdate: 'CASCADE'
-  })
-  
-    Cliente.hasMany(Porduto, {
-    foreignKey: 'Cliente_id',
-  })
-

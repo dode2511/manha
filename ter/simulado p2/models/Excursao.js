@@ -12,6 +12,10 @@ export const Excursao = sequelize.define('excursao', {
     type: DataTypes.STRING(20),
     allowNull: false,
   },
+  guia: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+  },
   tipo: {
     type: DataTypes.STRING(30),
     allowNull: false,
@@ -27,7 +31,7 @@ export const Excursao = sequelize.define('excursao', {
 });
 
 
-Reserva.belongsTo(Cliente, {
+Excursao.belongsTo(Cliente, {
     foreignKey: {
       name: 'Cliente_id',
       allowNull: false
@@ -36,7 +40,7 @@ Reserva.belongsTo(Cliente, {
     onUpdate: 'CASCADE'
   })
   
-    Cliente.hasMany(Reserva, {
+    Cliente.hasMany(Excursao, {
     foreignKey: 'Cliente_id',
   })
 

@@ -1,6 +1,5 @@
 import { DataTypes } from 'sequelize';
-import { sequelize } from '../data/conecta.js';
-
+import { sequelize } from '../databases/conecta.js';
 
 export const Cliente = sequelize.define('cliente', {
   id: {
@@ -9,20 +8,19 @@ export const Cliente = sequelize.define('cliente', {
     autoIncrement: true
   },
   nome: {
-    type: DataTypes.STRING(20),
-    allowNull: false,
+    type: DataTypes.STRING(40),
+    allowNull: false
   },
-  fone: {
-    type: DataTypes.STRING(30),
-    allowNull: false,
+  identidade: {
+    type: DataTypes.STRING(10),
+    allowNull: false
   },
   endereco: {
-    type: DataTypes.STRING(20),
-    allowNull: false,
+    type: DataTypes.STRING(50),
+    allowNull: false
   },
-  RG: {
+  telefone: {
     type: DataTypes.STRING(30),
-    allowNull: false,
-  },
+    allowNull: false
+  }
 });
-
