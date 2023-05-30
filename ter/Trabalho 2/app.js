@@ -29,7 +29,7 @@ async function conecta_db() {
     await Aluno.sync()
     await Matricula.sync()
      
-    //await sequelize.sync({alter: true});  
+   // await sequelize.sync({alter: true});  
    //await sequelize.sync({force: true});  
    
   } catch (error) {

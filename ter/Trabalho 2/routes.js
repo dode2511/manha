@@ -1,12 +1,12 @@
 import { Router } from "express"
-import { AlunoCreate, alunoIndex } from "./controllers/alunoController.js"
+import {  matriculaCreate, matriculaIndex } from "./controllers/matriculasController.js"
 import { cursoCreate, cursoIndex } from "./controllers/cursoController.js"
 
 
 const router = Router()
 
-router.get('/alunos',alunoIndex )
-      .post('/alunos', AlunoCreate)
+router.get('/matriculas', matriculaIndex )
+      .post('/matriculas', matriculaCreate)
 
 
 router.get('/cursos',cursoIndex )

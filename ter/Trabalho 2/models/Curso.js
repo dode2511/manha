@@ -24,6 +24,10 @@ export const Curso = sequelize.define('curso', {
   turno: {
     type: DataTypes.STRING(30),
     allowNull: false
+  },
+  numeroAlunos:{
+    type: DataTypes.INTEGER,
+    allowNull: false
   }
 });
 
