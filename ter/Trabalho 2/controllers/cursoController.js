@@ -16,18 +16,18 @@ export const cursoIndex = async (req, res) => {
 }
 
 export const cursoCreate = async (req, res) => {
-  const { nome,  descricao, endereco, turno,professor_id ,numeorAlunos} = req.body
+  const { nome,  descricao, endereco, turno,professor_id } = req.body
 
-  if (!nome || !descricao || !endereco || !turno || !professor_id ||!numeorAlunos) {
+  if (!nome || !descricao || !endereco || !turno || !professor_id ) {
     res.status(400).json({ id: 0, msg: "Erro... Informe os dados" })
     return
   }
 
   try {
-    const curso = await Curso.create({
-      nome, descricao, endereco, turno, professor_id,numeorAlunos
+    const cursos = await Curso.create({
+      nome, descricao, endereco, turno, professor_id
     });
-    res.status(201).json(curso)
+    res.status(201).json(cursos)
   } catch (error) {
     res.status(400).send(error)
   }

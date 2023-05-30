@@ -2,7 +2,7 @@ import { Aluno } from "../models/Aluno.js";
 import { Curso } from "../models/Curso.js";
 import { Matricula } from "../models/Matricula.js";
 import { Professor } from "../models/Professor.js";
-
+import { sequelize } from '../database/conecta.js'
 
 export const matriculaIndex = async (req, res) => {
   try {
@@ -16,36 +16,69 @@ export const matriculaIndex = async (req, res) => {
 }
 
 export const matriculaCreate = async (req, res) => {
-  const {  turno,curso_id,aluno_id } = req.body
+  const { aluno_id, curso_id, turno } = req.body
 
-  if (!curso_id || !turno || !aluno_id  ) {
+  // se não informou estes atributos
+  if (!aluno_id || !curso_id || !turno ) {
     res.status(400).json({ id: 0, msg: "Erro... Informe os dados" })
     return
   }
 
+  const t = await sequelize.transaction();
+
   try {
-    const result = await sequelize.transaction(async (transaction) => {
-      
-      const matricula = await Matricula.create({ aluno_id, curso_id,turno }, { transaction });
 
-      await Curso.increment('numeroAlunos', {
-        by: 1,
-        where: { id: curso_id },
-        transaction
-      });
+    const matricula = await Matricula.create({
+      aluno_id, curso_id, turno
+    }, { transaction: t });
 
-      return matricula;
-    });
+    await Curso.increment('numeroAlunos',
+      { by: 1, where: { id: curso_id }, transaction: t }
+    );
 
-    res.status(201).json(result)
+    await t.commit();
+    res.status(201).json(matricula)
+
   } catch (error) {
-    res.status(400).send(error)
+
+    await t.rollback();
+    res.status(400).json({"id": 0, "Erro": error})
+
   }
 }
 
-
-
-
  
+export const matriculaDestroy = async (req, res) => {
+  const { aluno_id, curso_id, turno } = req.body
+
+  // se não informou estes atributos
+  if (!aluno_id || !curso_id || !turno ) {
+    res.status(400).json({ id: 0, msg: "Erro... Informe os dados" })
+    return
+  }
+
+  const t = await sequelize.transaction();
+
+  try {
+
+    const matricula = await Matricula.create({
+      aluno_id, curso_id, turno
+    }, { transaction: t });
+
+    await Curso.increment('numeroAlunos',
+      { by: 1, where: { id: curso_id }, transaction: t }
+    );
+
+    await t.commit();
+    res.status(201).json(matricula)
+
+  } catch (error) {
+
+    await t.rollback();
+    res.status(400).json({"id": 0, "Erro": error})
+
+  }
+}
+
 
   

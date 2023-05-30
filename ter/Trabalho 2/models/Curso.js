@@ -27,7 +27,7 @@ export const Curso = sequelize.define('curso', {
   },
   numeroAlunos:{
     type: DataTypes.INTEGER,
-    allowNull: false
+    allowNull: true
   }
 });
 
