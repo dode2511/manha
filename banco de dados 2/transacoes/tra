@@ -1,0 +1,46 @@
+START TRANSACTION;
+  DELETE FROM ator;
+  SELECT* FROM ator
+  INSERT INTO ator (nome) VALUES('Will Smith');
+  SELECT FROM ator;
+   ROLLBACK;
+   
+   SELECT * FROM ator;
+
+
+
+
+
+START TRANSACTION;
+  DELETE FROM ator;
+  SELECT* FROM ator
+  INSERT INTO ator (nome) VALUES('Will Smith');
+  SELECT FROM ator;
+  COMMIT;
+   
+   SELECT * FROM ator;
+
+
+
+DELIMITER $$
+CREATE PROCEDURE insere_ator()
+BEGIN
+DECLARE sql_erro TINYINT DEFAULT FALSE;
+DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET sql_erro = TRUE;
+START TRANSACTION;
+ INSERT INTO ator(nome) VALUES("Angelo Luz")
+ INSERT INTO ator(nome) VALUES("Pablo Escobar")
+ INSERT INTO ator(nome) VALUES(NULL)
+
+ IF sql_erro = FALSE  THEN
+  COMMIT;
+  SELECT 'Transação OK' AS Situação;
+ELSE
+ ROLLBACK;
+   SELECT 'Erro na Transação' AS Situação;
+END IF;
+DELIMITER ;
+
+
+CALL  insere_ator();
+SELECT * FROM ator;

@@ -20,7 +20,11 @@ export const Reserva = sequelize.define('reserva', {
     type: DataTypes.DECIMAL(4,2),
     allowNull: false,
   },
-  data: {
+  data_Entrada: {
+    type: DataTypes.DATE,
+    allowNull: false,
+  },
+  data_Saida: {
     type: DataTypes.DATE,
     allowNull: false,
   },

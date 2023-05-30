@@ -1,0 +1,10 @@
+INSERT INTO professor (nome,fone,endereco,cpf) VALUES('ana','1111232',"areal","99896-34");
+INSERT INTO professor (nome,fone,endereco,cpf) VALUES('lucas','234345656',"ferreira viana","545456-34");
+INSERT INTO professor (nome,fone,endereco,cpf) VALUES('isadora','44565767',"fragata","676873-98");
+INSERT INTO professor (nome,fone,endereco,cpf) VALUES('andre','9908563',"laranjal ","78945-48");
+
+
+INSERT INTO cursos (nome,descricao,endereco,turno,professor_id) VALUES('farmacia','faz remedios',"campus porto ","vespertino",2);
+INSERT INTO cursos (nome,descricao,endereco,turno,professor_id) VALUES('ciencia da computacao','faz programa',"campus porto ","integral",4);
+INSERT INTO cursos (nome,descricao,endereco,turno,professor_id) VALUES('educação fisica','faz academia',"campus porto ","vespertino",2);
+INSERT INTO cursos (nome,descricao,endereco,turno,professor_id) VALUES('engenharia civil','uber',"campus porto ","integral",1);
