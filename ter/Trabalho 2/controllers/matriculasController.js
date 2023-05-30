@@ -49,34 +49,34 @@ export const matriculaCreate = async (req, res) => {
 
  
 export const matriculaDestroy = async (req, res) => {
-  const { aluno_id, curso_id, turno } = req.body
-
-  // se não informou estes atributos
-  if (!aluno_id || !curso_id || !turno ) {
-    res.status(400).json({ id: 0, msg: "Erro... Informe os dados" })
-    return
-  }
+  const matriculaId = req.params.id;
 
   const t = await sequelize.transaction();
 
   try {
+    const matricula = await Matricula.findByPk(matriculaId, { transaction: t });
 
-    const matricula = await Matricula.create({
-      aluno_id, curso_id, turno
-    }, { transaction: t });
+    if (!matricula) {
+      res.status(404).json({ error: 'Matrícula não encontrada.' });
+      return;
+    }
 
-    await Curso.increment('numeroAlunos',
-      { by: 1, where: { id: curso_id }, transaction: t }
-    );
+    const { curso_id } = matricula;
+
+    await matricula.destroy({ transaction: t });
+
+    await Curso.decrement('numeroAlunos', {
+      by: 1,
+      where: { id: curso_id },
+      transaction: t
+    });
 
     await t.commit();
-    res.status(201).json(matricula)
-
+    res.status(204).end();
   } catch (error) {
-
     await t.rollback();
-    res.status(400).json({"id": 0, "Erro": error})
-
+    console.error(error);
+    res.status(500).json({ error: 'Erro ao excluir a matrícula.' });
   }
 }
 
