@@ -23,11 +23,12 @@ async function conecta_db() {
   try {
     await sequelize.authenticate();
     console.log('Conexão com banco de dados realizada com sucesso');
+    await sequelize.sync(); 
     await Curso.sync()
     await Professor.sync()
     await Aluno.sync()
     await Matricula.sync()
-    //await sequelize.sync();  
+     
     //await sequelize.sync({alter: true});  
    //await sequelize.sync({force: true});  
    

@@ -7,7 +7,7 @@ import { Professor } from "../models/Professor.js";
 export const alunoIndex = async (req, res) => {
   try {
     const alunos = await Aluno.findAll(
-      { include: [Curso, Professor,Matricula] }
+      { include: [Matricula] }
     );
     res.status(200).json(alunos)
   } catch (error) {
