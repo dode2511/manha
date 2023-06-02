@@ -48,37 +48,3 @@ export const matriculaCreate = async (req, res) => {
 }
 
  
-export const matriculaDestroy = async (req, res) => {
-  const matriculaId = req.params.id;
-
-  const t = await sequelize.transaction();
-
-  try {
-    const matricula = await Matricula.findByPk(matriculaId, { transaction: t });
-
-    if (!matricula) {
-      res.status(404).json({ error: 'Matrícula não encontrada.' });
-      return;
-    }
-
-    const { curso_id } = matricula;
-
-    await matricula.destroy({ transaction: t });
-
-    await Curso.decrement('numeroAlunos', {
-      by: 1,
-      where: { id: curso_id },
-      transaction: t
-    });
-
-    await t.commit();
-    res.status(204).end();
-  } catch (error) {
-    await t.rollback();
-    console.error(error);
-    res.status(500).json({ error: 'Erro ao excluir a matrícula.' });
-  }
-}
-
-
-  
