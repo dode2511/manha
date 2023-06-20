@@ -2,8 +2,11 @@ import express from 'express'
 import cors from "cors"
 import routes from './routes.js'
 
-import { sequelize } from './data/conecta.js'
+import { sequelize } from './databases/conecta.js'
 import { Usuario } from './models/Usuario.js'
+import { Restaurante } from './models/Restaurante.js'
+import { Avaliacao } from './models/Avaliacao.js'
+import { Log } from './models/Log.js'
 
 const app = express()
 const port = 3000
@@ -20,9 +23,9 @@ async function conecta_db() {
     // Pode-se indicar a sincronização das models uma por uma
     await Usuario.sync()
     // await Restaurante.sync({alter: true})
-    //await Restaurante.sync()
-   // await Avaliacao.sync()
-   // await Log.sync()
+    await Restaurante.sync()
+    await Avaliacao.sync()
+    await Log.sync()
 
   } catch (error) {
     console.error('Erro na conexão com o banco: ', error);
@@ -31,7 +34,7 @@ async function conecta_db() {
 conecta_db()
 
 app.get('/', (req, res) => {
-  res.send('API trab 3')
+  res.send('API Avaliação de Restaurantes')
 })
 
 app.listen(port, () => {
